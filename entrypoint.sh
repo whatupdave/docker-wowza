@@ -11,7 +11,7 @@ check_and_install_wowza() {
   fi
 
   echo "No installation found"
-  echo "Installing Wowza..."
+  echo "Installing Wowza ${WOWZA_VERSION}"
 
   if [[ ${WOWZA_ACCEPT_LICENSE} != yes ]]; then
     echo "ERROR: "
@@ -40,6 +40,8 @@ check_and_install_wowza() {
   # symlink /usr/local/WowzaStreamingEngine/manager/logs -> ${WOWZA_LOG_DIR}/manager
   rm -rf /usr/local/WowzaStreamingEngine/manager/logs
   ln -sf ${WOWZA_LOG_DIR}/manager /usr/local/WowzaStreamingEngine/manager/logs
+
+  echo "Installation complete"
 }
 
 rewire_wowza() {
@@ -67,6 +69,9 @@ rewire_wowza() {
 
   rm -rf /usr/local/WowzaStreamingEngine/stats
   ln -sf ${WOWZA_DATA_DIR}/stats /usr/local/WowzaStreamingEngine/stats
+
+  rm -rf /usr/local/WowzaStreamingEngine/updates
+  ln -sf ${WOWZA_DATA_DIR}/updates /usr/local/WowzaStreamingEngine/updates
 }
 
 initialize_data_dir() {
@@ -85,6 +90,7 @@ initialize_data_dir() {
     [[ ! -d ${WOWZA_DATA_DIR}/applications ]] && cp -a /usr/local/WowzaStreamingEngine/applications ${WOWZA_DATA_DIR}/applications
     [[ ! -d ${WOWZA_DATA_DIR}/lib ]]          && cp -a /usr/local/WowzaStreamingEngine/lib ${WOWZA_DATA_DIR}/lib
     [[ ! -d ${WOWZA_DATA_DIR}/stats ]]        && mkdir -p ${WOWZA_DATA_DIR}/stats
+    [[ ! -d ${WOWZA_DATA_DIR}/updates ]]      && mkdir -p ${WOWZA_DATA_DIR}/updates
     touch ${WOWZA_DATA_DIR}/.firstrun
   fi
 }

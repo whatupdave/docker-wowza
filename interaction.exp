@@ -1,4 +1,5 @@
 #!/usr/bin/expect -f
+# exp_internal 1
 
 # Modified version of https://github.com/simplycycling/ansible-wowza/blob/f6ed47147d6ab318230f978be99322b9fe58d8eb/templates/script.exp.j2
 
